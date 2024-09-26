@@ -37,7 +37,7 @@ function Home() {
     : [];
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-screen">
       <CustomCalendar
         currentMonth={state.currentMonth}
         setCurrentMonth={(date) =>

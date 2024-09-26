@@ -34,7 +34,7 @@ const BottomSheet: React.FC<{
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
           >
             <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-lg font-semibold text-slate-700">{title}</h2>
+              <h2 className="text-lg font-semibold text-red-300">{title}</h2>
               <motion.button
                 onClick={onClose}
                 className="p-1 rounded-full hover:bg-gray-200"

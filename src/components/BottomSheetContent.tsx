@@ -1,6 +1,7 @@
 import React from "react";
 import EventForm from "@/components/EventForm";
 import { Event, EventFormData } from "@/store/events/eventTypes";
+import { ChevronRight } from "lucide-react";
 
 interface BottomSheetContentProps {
   isAddingEvent: boolean;
@@ -40,10 +41,10 @@ const BottomSheetContent: React.FC<BottomSheetContentProps> = ({
         <p className="text-black">No events for this date.</p>
         <br />
         <button
-          className="text-blue-600"
+          className="text-blue-600 flex"
           onClick={() => dispatch({ type: "SET_ADDING_EVENT", payload: true })}
         >
-          add event
+          add event <ChevronRight />
         </button>
       </>
     );
@@ -63,13 +64,13 @@ const BottomSheetContent: React.FC<BottomSheetContentProps> = ({
                 className="text-blue-600"
                 onClick={() => startEditingEvent(event)}
               >
-                Edit
+                edit
               </button>
               <button
                 className="text-red-600"
                 onClick={() => handleDeleteEvent(event.id)}
               >
-                Delete
+                delete
               </button>
             </div>
           </li>
@@ -77,10 +78,10 @@ const BottomSheetContent: React.FC<BottomSheetContentProps> = ({
       </ul>
       <br />
       <button
-        className="text-blue-600"
+        className="text-blue-600 flex hover:scale-105"
         onClick={() => dispatch({ type: "SET_ADDING_EVENT", payload: true })}
       >
-        Add another event
+        add more <ChevronRight />
       </button>
     </>
   );
