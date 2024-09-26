@@ -26,8 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-black h-screen flex flex-col justify-between`}
       >
+        <div className="bg-black text-white text-center p-5">
+          Loco assignment
+        </div>
         {children}
       </body>
     </html>
