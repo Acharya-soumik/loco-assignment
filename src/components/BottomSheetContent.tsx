@@ -2,6 +2,7 @@ import React from "react";
 import EventForm from "@/components/EventForm";
 import { Event, EventFormData } from "@/store/events/eventTypes";
 import { ChevronRight } from "lucide-react";
+import { Action } from "@/store/events";
 
 interface BottomSheetContentProps {
   isAddingEvent: boolean;
@@ -9,7 +10,7 @@ interface BottomSheetContentProps {
   selectedDate: Date | null;
   eventsForSelectedDate: Event[];
   newEventData: EventFormData;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<Action>;
   startEditingEvent: (event: Event) => void;
   handleDeleteEvent: (eventId: string) => void;
 }
@@ -17,7 +18,6 @@ interface BottomSheetContentProps {
 const BottomSheetContent: React.FC<BottomSheetContentProps> = ({
   isAddingEvent,
   isEditingEvent,
-  selectedDate,
   eventsForSelectedDate,
   newEventData,
   dispatch,

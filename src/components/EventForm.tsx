@@ -1,4 +1,4 @@
-import { EventFormData } from "@/app/page";
+import { EventFormData } from "@/store/events";
 import { useState } from "react";
 
 const EventForm: React.FC<{
