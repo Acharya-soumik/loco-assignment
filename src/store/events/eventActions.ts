@@ -41,3 +41,8 @@ export const updateNewEventData = (data: EventFormData): EventAction => ({
 export const resetForm = (): EventAction => ({
   type: "RESET_FORM",
 });
+
+export const toggleBottomSheet = (show: boolean): EventAction => ({
+  type: "TOGGLE_BOTTOM_SHEET",
+  payload: show,
+});

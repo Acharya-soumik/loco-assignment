@@ -2,50 +2,31 @@
 import { useReducer, useCallback } from "react";
 import BottomSheet from "@/components/BottomSheet";
 import CustomCalendar from "@/components/CustomCalender";
-import EventForm from "@/components/EventForm";
-import {
-  eventReducer,
-  initialEventState,
-  EventState,
-  EventAction,
-} from "@/store/events";
-import * as eventActions from "@/store/events";
-
-export type Event = {
-  id: string;
-  date: Date;
-  title: string;
-  description: string;
-};
-
-export type EventFormData = {
-  title: string;
-  description: string;
-};
+import BottomSheetContent from "@/components/BottomSheetContent";
+import { Event } from "@/store/events/eventTypes";
+import { initialState, reducer } from "@/store/events";
 
 function Home() {
-  const [state, dispatch] = useReducer<
-    (state: EventState, action: EventAction) => EventState
-  >(eventReducer, initialEventState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleDateSelect = useCallback((date: Date | null) => {
-    dispatch(eventActions.selectDate(date));
+    dispatch({ type: "SELECT_DATE", payload: date });
   }, []);
 
   const handleAddEvent = useCallback(() => {
-    dispatch(eventActions.addEvent());
+    dispatch({ type: "ADD_EVENT" });
   }, []);
 
   const handleEditEvent = useCallback(() => {
-    dispatch(eventActions.editEvent());
+    dispatch({ type: "EDIT_EVENT" });
   }, []);
 
   const handleDeleteEvent = useCallback((eventId: string) => {
-    dispatch(eventActions.deleteEvent(eventId));
+    dispatch({ type: "DELETE_EVENT", payload: eventId });
   }, []);
 
   const startEditingEvent = useCallback((event: Event) => {
-    dispatch(eventActions.startEditingEvent(event));
+    dispatch({ type: "START_EDITING_EVENT", payload: event });
   }, []);
 
   const eventsForSelectedDate = state.selectedDate
@@ -93,59 +74,16 @@ function Home() {
             : `Events for ${state.selectedDate?.toDateString()}`
         }
       >
-        {state.isAddingEvent || state.isEditingEvent ? (
-          <EventForm
-            onDataChange={(data) =>
-              dispatch(eventActions.updateNewEventData(data))
-            }
-            initialData={state.newEventData}
-          />
-        ) : eventsForSelectedDate.length === 0 ? (
-          <>
-            <p className="text-black">No events for this date.</p>
-            <br />
-            <button
-              className="text-blue-600"
-              onClick={() => dispatch(eventActions.addEvent())}
-            >
-              Add a new event
-            </button>
-          </>
-        ) : (
-          <>
-            <ul className="space-y-4">
-              {eventsForSelectedDate.map((event) => (
-                <li key={event.id} className="border-b pb-2">
-                  <h3 className="text-black font-semibold">{event.title}</h3>
-                  <p className="text-black">{event.description}</p>
-                  <div className="mt-2 space-x-2">
-                    <button
-                      className="text-blue-600"
-                      onClick={() => startEditingEvent(event)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="text-red-600"
-                      onClick={() => handleDeleteEvent(event.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <br />
-            <button
-              className="text-blue-600"
-              onClick={() =>
-                dispatch({ type: "SET_ADDING_EVENT", payload: true })
-              }
-            >
-              Add another event
-            </button>
-          </>
-        )}
+        <BottomSheetContent
+          isAddingEvent={state.isAddingEvent}
+          isEditingEvent={state.isEditingEvent}
+          selectedDate={state.selectedDate}
+          eventsForSelectedDate={eventsForSelectedDate}
+          newEventData={state.newEventData}
+          dispatch={dispatch}
+          startEditingEvent={startEditingEvent}
+          handleDeleteEvent={handleDeleteEvent}
+        />
       </BottomSheet>
     </div>
   );

@@ -18,6 +18,7 @@ export type EventState = {
   isEditingEvent: boolean;
   editingEventId: string | null;
   newEventData: EventFormData;
+  showBs: boolean;
 };
 
 export type EventAction =
@@ -29,4 +30,5 @@ export type EventAction =
   | { type: "SET_ADDING_EVENT"; payload: boolean }
   | { type: "START_EDITING_EVENT"; payload: Event }
   | { type: "UPDATE_NEW_EVENT_DATA"; payload: EventFormData }
-  | { type: "RESET_FORM" };
+  | { type: "RESET_FORM" }
+  | { type: "TOGGLE_BOTTOM_SHEET"; payload: boolean };
